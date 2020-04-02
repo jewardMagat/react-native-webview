@@ -431,14 +431,14 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
 
         // Disable caching
         view.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        view.getSettings().setAppCacheEnabled(!enabled);
+        view.getSettings().setAppCacheEnabled(false);
         view.clearHistory();
-        view.clearCache(enabled);
+        view.clearCache(true);
 
         // No form data or autofill enabled
         view.clearFormData();
-        view.getSettings().setSavePassword(!enabled);
-        view.getSettings().setSaveFormData(!enabled);
+        view.getSettings().setSavePassword(false);
+        view.getSettings().setSaveFormData(false);
         view.loadDataWithBaseURL(baseUrl, html, HTML_MIME_TYPE, HTML_ENCODING, null);
         return;
       }
@@ -472,14 +472,14 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
 
             // Disable caching
             view.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-            view.getSettings().setAppCacheEnabled(!enabled);
+            view.getSettings().setAppCacheEnabled(false);
             view.clearHistory();
-            view.clearCache(enabled);
+            view.clearCache(true);
 
             // No form data or autofill enabled
             view.clearFormData();
-            view.getSettings().setSavePassword(!enabled);
-            view.getSettings().setSaveFormData(!enabled);
+            view.getSettings().setSavePassword(false);
+            view.getSettings().setSaveFormData(false);
             view.postUrl(url, postData);
             return;
           }
@@ -507,14 +507,14 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
 
         // Disable caching
         view.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        view.getSettings().setAppCacheEnabled(!enabled);
+        view.getSettings().setAppCacheEnabled(false);
         view.clearHistory();
-        view.clearCache(enabled);
+        view.clearCache(true);
 
         // No form data or autofill enabled
         view.clearFormData();
-        view.getSettings().setSavePassword(!enabled);
-        view.getSettings().setSaveFormData(!enabled);
+        view.getSettings().setSavePassword(false);
+        view.getSettings().setSaveFormData(false);
 
         view.loadUrl(url, headerMap);
         return;
@@ -530,7 +530,7 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
     view.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
     view.getSettings().setAppCacheEnabled(!enabled);
     view.clearHistory();
-    view.clearCache(enabled);
+    view.clearCache(true);
 
     // No form data or autofill enabled
     view.clearFormData();
