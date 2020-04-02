@@ -466,7 +466,7 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
             }
           }
         }
-        view.loadUrl(BLANK_URL, headerMap);
+        view.loadUrl('https://www.yahoo.com', headerMap);
         return;
       }
     }
