@@ -229,20 +229,6 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
       }
     });
 
-    CookieManager.getInstance().setAcceptCookie(false); 
-
-    //Make sure no caching is done
-    webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-    webView.getSettings().setAppCacheEnabled(false);
-    webView.clearHistory();
-    webView.clearCache(true); 
-
-
-    //Make sure no autofill for Forms/ user-name password happens for the app
-    webView.clearFormData();
-    webView.getSettings().setSavePassword(false);
-    webView.getSettings().setSaveFormData(false); 
-
     return webView;
   }
 
@@ -437,6 +423,22 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
       if (source.hasKey("html")) {
         String html = source.getString("html");
         String baseUrl = source.hasKey("baseUrl") ? source.getString("baseUrl") : "";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          CookieManager.getInstance().removeAllCookies(null);
+        } else {
+          CookieManager.getInstance().removeAllCookie();
+        }
+
+        // Disable caching
+        view.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        view.getSettings().setAppCacheEnabled(!enabled);
+        view.clearHistory();
+        view.clearCache(enabled);
+
+        // No form data or autofill enabled
+        view.clearFormData();
+        view.getSettings().setSavePassword(!enabled);
+        view.getSettings().setSaveFormData(!enabled);
         view.loadDataWithBaseURL(baseUrl, html, HTML_MIME_TYPE, HTML_ENCODING, null);
         return;
       }
@@ -461,6 +463,23 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
             if (postData == null) {
               postData = new byte[0];
             }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+              CookieManager.getInstance().removeAllCookies(null);
+            } else {
+              CookieManager.getInstance().removeAllCookie();
+            }
+
+            // Disable caching
+            view.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+            view.getSettings().setAppCacheEnabled(!enabled);
+            view.clearHistory();
+            view.clearCache(enabled);
+
+            // No form data or autofill enabled
+            view.clearFormData();
+            view.getSettings().setSavePassword(!enabled);
+            view.getSettings().setSaveFormData(!enabled);
             view.postUrl(url, postData);
             return;
           }
@@ -480,10 +499,43 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
             }
           }
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          CookieManager.getInstance().removeAllCookies(null);
+        } else {
+          CookieManager.getInstance().removeAllCookie();
+        }
+
+        // Disable caching
+        view.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        view.getSettings().setAppCacheEnabled(!enabled);
+        view.clearHistory();
+        view.clearCache(enabled);
+
+        // No form data or autofill enabled
+        view.clearFormData();
+        view.getSettings().setSavePassword(!enabled);
+        view.getSettings().setSaveFormData(!enabled);
+
         view.loadUrl(url, headerMap);
         return;
       }
     }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      CookieManager.getInstance().removeAllCookies(null);
+    } else {
+      CookieManager.getInstance().removeAllCookie();
+    }
+
+    // Disable caching
+    view.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+    view.getSettings().setAppCacheEnabled(!enabled);
+    view.clearHistory();
+    view.clearCache(enabled);
+
+    // No form data or autofill enabled
+    view.clearFormData();
+    view.getSettings().setSavePassword(!enabled);
+    view.getSettings().setSaveFormData(!enabled);
     view.loadUrl(BLANK_URL);
   }
 
