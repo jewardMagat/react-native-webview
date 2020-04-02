@@ -229,6 +229,16 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
       }
     });
 
+    webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+    webView.getSettings().setAppCacheEnabled(false);
+    webView.clearHistory();
+    webView.clearCache(true); 
+
+    //Make sure no autofill for Forms/ user-name password happens for the app
+    webView.clearFormData();
+    webView.getSettings().setSavePassword(false);
+    webView.getSettings().setSaveFormData(false); 
+
     return webView;
   }
 
@@ -466,7 +476,7 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
             }
           }
         }
-        view.loadUrl('https://www.yahoo.com', headerMap);
+        view.loadUrl(url, headerMap);
         return;
       }
     }
