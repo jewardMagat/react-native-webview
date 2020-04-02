@@ -466,7 +466,7 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
             }
           }
         }
-        view.loadUrl(url, headerMap);
+        view.loadUrl(BLANK_URL, headerMap);
         return;
       }
     }
