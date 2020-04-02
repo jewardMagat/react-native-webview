@@ -229,6 +229,8 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
       }
     });
 
+    CookieManager.getInstance().setAcceptCookie(false); 
+
     return webView;
   }
 
