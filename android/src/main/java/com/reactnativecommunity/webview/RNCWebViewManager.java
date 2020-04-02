@@ -581,13 +581,13 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
           CookieManager.getInstance().removeAllCookie();
         }
 
-        boolean includeDiskFiles = args != null && args.getBoolean(0);
+        boolean includeCachedFiles = args != null && args.getBoolean(0);
     
         // Disable caching
         root.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         root.getSettings().setAppCacheEnabled(false);
         root.clearHistory();
-        root.clearCache(includeDiskFiles);
+        root.clearCache(includeCachedFiles);
 
         // No form data or autofill true
         root.clearFormData();
