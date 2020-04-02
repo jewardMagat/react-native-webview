@@ -423,22 +423,6 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
       if (source.hasKey("html")) {
         String html = source.getString("html");
         String baseUrl = source.hasKey("baseUrl") ? source.getString("baseUrl") : "";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-          CookieManager.getInstance().removeAllCookies(null);
-        } else {
-          CookieManager.getInstance().removeAllCookie();
-        }
-
-        // Disable caching
-        view.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        view.getSettings().setAppCacheEnabled(false);
-        view.clearHistory();
-        view.clearCache(true);
-
-        // No form data or autofill enabled
-        view.clearFormData();
-        view.getSettings().setSavePassword(false);
-        view.getSettings().setSaveFormData(false);
         view.loadDataWithBaseURL(baseUrl, html, HTML_MIME_TYPE, HTML_ENCODING, null);
         return;
       }
@@ -463,23 +447,6 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
             if (postData == null) {
               postData = new byte[0];
             }
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-              CookieManager.getInstance().removeAllCookies(null);
-            } else {
-              CookieManager.getInstance().removeAllCookie();
-            }
-
-            // Disable caching
-            view.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-            view.getSettings().setAppCacheEnabled(false);
-            view.clearHistory();
-            view.clearCache(true);
-
-            // No form data or autofill enabled
-            view.clearFormData();
-            view.getSettings().setSavePassword(false);
-            view.getSettings().setSaveFormData(false);
             view.postUrl(url, postData);
             return;
           }
@@ -499,43 +466,10 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
             }
           }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-          CookieManager.getInstance().removeAllCookies(null);
-        } else {
-          CookieManager.getInstance().removeAllCookie();
-        }
-
-        // Disable caching
-        view.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        view.getSettings().setAppCacheEnabled(false);
-        view.clearHistory();
-        view.clearCache(true);
-
-        // No form data or autofill enabled
-        view.clearFormData();
-        view.getSettings().setSavePassword(false);
-        view.getSettings().setSaveFormData(false);
-
         view.loadUrl(url, headerMap);
         return;
       }
     }
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      CookieManager.getInstance().removeAllCookies(null);
-    } else {
-      CookieManager.getInstance().removeAllCookie();
-    }
-
-    // Disable caching
-    view.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-    view.getSettings().setAppCacheEnabled(false);
-    view.clearHistory();
-    view.clearCache(true);
-
-    // No form data or autofill enabled
-    view.clearFormData();
-    view.getSettings().setSavePassword(false);
-    view.getSettings().setSaveFormData(false);
     view.loadUrl(BLANK_URL);
   }
 
@@ -641,6 +575,22 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
         root.goForward();
         break;
       case COMMAND_RELOAD:
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          CookieManager.getInstance().removeAllCookies(null);
+        } else {
+          CookieManager.getInstance().removeAllCookie();
+        }
+
+        // Disable caching
+        root.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        root.getSettings().setAppCacheEnabled(false);
+        root.clearHistory();
+        root.clearCache(true);
+
+        // No form data or autofill true
+        root.clearFormData();
+        root.getSettings().setSavePassword(false);
+        root.getSettings().setSaveFormData(false);
         root.reload();
         break;
       case COMMAND_STOP_LOADING:
